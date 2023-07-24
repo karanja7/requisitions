@@ -60,7 +60,7 @@ if (isset($_POST['sign-out-btn'])) {
 
     <section id="showcase">
     <div class="home-main-content">
-        <h1>Company Budgets and Requisition management system</h1>
+        <h1>Company- Budgets and Requisition management system</h1>
         <p>REQUISMART is a revolutionary budgets and requisitions system that helps streamline the procurement process. Our intuitive system allows you to keep track of all of your spending, allowing for more accurate forecasting and better budget management. With REQUISMART, you can reduce paperwork, speed up processes, and simplify procurement, resulting in more time to focus on other important tasks.</p>
         </div>
     </section>
