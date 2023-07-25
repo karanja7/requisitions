@@ -49,10 +49,7 @@ if (isset($_SESSION['unique_code'])) {
     <div class="header">
         <img src="images/SOLNs.png" alt="REQUISMART Logo" class="logo">
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
-        <nav> 
-            <a href="#" class="direct"></a>    
-            <a href="#" class="direct"></a>   
-            <a href="#" class="direct"></a>   
+        <nav>   
 
         </nav>
         
@@ -72,7 +69,7 @@ if (isset($_SESSION['unique_code'])) {
                 <a href="requisitions.php"><ion-icon name="newspaper"></ion-icon></ion-icon> Requisitions</a>  
                 <a href="myprofile.php"><ion-icon name="person-circle-sharp"></ion-icon> Profile</a>
                 <a href="F.A.Qs.php"><ion-icon name="help-circle"></ion-icon> F.A.Qs</a>
-                <a href="myprofile.php"><ion-icon name="settings"></ion-icon> Settings</a>
+                <a href="reports.php"><ion-icon name="settings"></ion-icon> Reports</a>
             </li>
         </ul>
         <form method="post">

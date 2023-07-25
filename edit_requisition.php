@@ -4,7 +4,7 @@ $requisitionNumber = $_GET['requisition_number'];
 
 // Check if requisition number is provided
 if (empty($requisitionNumber)) {
-    echo "Requisition number not specified.";
+    header("Location: requisition_list.php?error=Requisition number not specified.");
     exit;
 }
 
@@ -66,43 +66,56 @@ $conn->close();
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Requisition</title>
+    <link rel="stylesheet" type="text/css" href="home.css">
 </head>
 <body>
+    <div class="reqpageheader">
+        <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
+        <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
+        <nav>  
+
+        </nav>
+    </div>
+
     <h1>Edit Requisition</h1>
-    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form id="edit-requisition" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         <input type="hidden" name="requisition_number" value="<?php echo htmlspecialchars($requisition['requisition_number']); ?>">
 
         <div>
-            <label for="requester-name">Requester Name:</label>
-            <input type="text" id="requester-name" name="requesterName" value="<?php echo htmlspecialchars($requisition['requester_name']); ?>" required>
+            <label for="requester-name" class="req-label">Requester Name:</label>
+            <input type="text" id="requester-name" name="requesterName" class="req-input" value="<?php echo htmlspecialchars($requisition['requester_name']); ?>" required>
         </div>
         <div>
-            <label for="product-details">Product Details:</label>
-            <input type="text" id="product-details" name="productDetails" value="<?php echo htmlspecialchars($requisition['product_details']); ?>" required>
+            <label for="product-details" class="req-label">Product Details:</label>
+            <input type="text" id="product-details" name="productDetails" class="req-input" value="<?php echo htmlspecialchars($requisition['product_details']); ?>" required>
         </div>
         <div>
-            <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity" name="quantity" value="<?php echo htmlspecialchars($requisition['quantity']); ?>" required>
+            <label for="quantity" class="req-label">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" class="req-input" value="<?php echo htmlspecialchars($requisition['quantity']); ?>" required>
         </div>
         <div>
-            <label for="price">Price:</label>
-            <input type="number" id="price" name="price" value="<?php echo htmlspecialchars($requisition['price']); ?>" required>
+            <label for="price" class="req-label">Price:</label>
+            <input type="number" id="price" name="price" class="req-input" value="<?php echo htmlspecialchars($requisition['price']); ?>" required>
         </div>
         <div>
-            <label for="delivery-date">Delivery Date:</label>
-            <input type="date" id="delivery-date" name="deliveryDate" value="<?php echo htmlspecialchars($requisition['delivery_date']); ?>" required>
+            <label for="delivery-date" class="req-label">Delivery Date:</label>
+            <input type="date" id="delivery-date" name="deliveryDate" class="req-input" value="<?php echo htmlspecialchars($requisition['delivery_date']); ?>" required>
         </div>
         <div>
-            <label for="department">Department:</label>
-            <input type="text" id="department" name="department" value="<?php echo htmlspecialchars($requisition['department']); ?>" required>
+            <label for="department" class="req-label">Department:</label>
+            <input type="text" id="department" name="department" class="req-input" value="<?php echo htmlspecialchars($requisition['department']); ?>" required>
         </div>
-        <div>
-            <label for="additional-info">Additional Information:</label>
+        <div> 
+            <label for="additional-info" class="req-label">Additional Information:</label>
             <textarea id="additional-info" name="additionalInfo"><?php echo htmlspecialchars($requisition['additional_info']); ?></textarea>
         </div>
         <button type="submit">Update</button>
     </form>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
 

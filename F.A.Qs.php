@@ -48,7 +48,7 @@ include("connection.php");
                 <a href="requisitions.php"><ion-icon name="newspaper"></ion-icon></ion-icon> Requisitions</a>  
                 <a href="myprofile.php"><ion-icon name="person-circle-sharp"></ion-icon> Profile</a>
                 <a href="F.A.Qs.php"><ion-icon name="help-circle"></ion-icon> F.A.Qs</a>
-                <a href="myprofile.php"><ion-icon name="settings"></ion-icon> Settings</a>
+                <a href="reports.php"><ion-icon name="settings"></ion-icon>Reports</a>
             </li>
         </ul>
         <form method="post">

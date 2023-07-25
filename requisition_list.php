@@ -14,6 +14,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+if (isset($_GET['error'])) {
+    echo htmlspecialchars($_GET['error']);
+}
 
 // Handle delete request
 if (isset($_GET['delete_id'])) {
@@ -82,10 +85,7 @@ $result = $conn->query($sql);
         <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav> 
-            <a href="#" class="direct"></a>    
-            <a href="#" class="direct"></a>   
-            <a href="#" class="direct"></a>   
-
+            
         </nav>
     </div>
     <h1>Requisition List</h1>
