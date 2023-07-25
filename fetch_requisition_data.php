@@ -1,3 +1,4 @@
+<!--handle the in-stock products etc -->
 <?php
 // Connect to the database and fetch data
 $servername = "localhost";
