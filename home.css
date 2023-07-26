@@ -335,7 +335,7 @@ tfoot td{
 
 /* Styles for the form container */
 #requisition-form {
-  width: 900px;
+  width: 600px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f2f2f2;
@@ -365,7 +365,7 @@ tfoot td{
 #requisition-form button[type="submit"] {
   display: block;
   margin-top: 30px;
-  margin-left: 250px;
+  margin-left: 200px;
   width: 50%;
   padding: 10px;
   background-color: #4CAF50;
@@ -412,6 +412,19 @@ tfoot td{
   margin-top: 10px;
   font-size: 18px;
   color: #555;
+}
+/* Reports page*/
+.report-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.report-button:hover {
+  background-color: #0056b3;
 }
 
 

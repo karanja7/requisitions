@@ -1,4 +1,8 @@
 <?php
+session_start();
+include("connection.php");
+require('fpdf.php'); // Include the FPDF library
+
 // Handle sign-out button click
 if (isset($_POST['sign-out-btn'])) {
     // Destroy the session to log the user out
@@ -8,8 +12,70 @@ if (isset($_POST['sign-out-btn'])) {
     exit();
 }
 
-session_start();
-include("connection.php");
+// Function to generate and download the PDF report for budgets
+function generateBudgetsReport($conn2) {
+    // Fetch budget details from the database
+    $sql = "SELECT * FROM budgets";
+    $result = $conn2->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Create the PDF document
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Cell(40, 10, 'Budgets Report');
+
+        // Add content (budget details) to the PDF
+        while ($row = $result->fetch_assoc()) {
+            $pdf->Ln();
+            $pdf->Cell(40, 10, 'Budget Name: ' . $row['budget_name']);
+            $pdf->Cell(40, 10, 'Amount: ' . $row['amount']);
+            // Add more fields from the budget table as needed
+        }
+
+        // Output the PDF document to the user's browser for download
+        $pdf->Output();
+    } else {
+        echo "No budgets found.";
+    }
+}
+
+// Function to generate and download the PDF report for requisitions
+function generateRequisitionsReport($conn2) {
+    // Fetch requisitions details from the database
+    $sql = "SELECT * FROM requisitions";
+    $result = $conn2->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Create the PDF document
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial', 'B', 16);
+        $pdf->Cell(40, 10, 'Requisitions Report');
+
+        // Add content (requisitions details) to the PDF
+        while ($row = $result->fetch_assoc()) {
+            $pdf->Ln();
+            $pdf->Cell(40, 10, 'Requisition Number: ' . $row['requisition_number']);
+            $pdf->Cell(40, 10, 'Requester Name: ' . $row['requester_name']);
+            $pdf->Cell(40, 10, 'Product Details: ' . $row['product_details']);
+            // Add more fields from the requisitions table as needed
+        }
+
+        // Output the PDF document to the user's browser for download
+        $pdf->Output();
+    } else {
+        echo "No requisitions found.";
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['generate-budgets-report-btn'])) {
+        generateBudgetsReport($conn);
+    } elseif (isset($_POST['generate-requisitions-report-btn'])) {
+        generateRequisitionsReport($conn);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,9 +121,23 @@ include("connection.php");
     
     <div class="main-content">
         <h1>Reports </h1>
+        <!--main content -->
+        <div>
+            <h2>Generate Budgets Report</h2>
+            <form method="post">
+                <button type="submit" name="generate-budgets-report-btn">Download Budgets Report</button>
+            </form>
+        </div>
+        <div>
+            <h2>Generate Requisitions Report</h2>
+            <form method="post">
+                <button type="submit" name="generate-requisitions-report">Download Requisitions Report</button>
+            </form>
+        </div>
         
     </div>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
+<?php

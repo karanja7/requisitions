@@ -1,19 +1,6 @@
 <?php
 require('fpdf/fpdf.php');
-
-// Database configuration
-$servername = "localhost";
-$username = "root";
-$password = "Gathoni1.";
-$dbname = "requisition_management";
-
-// Create a database connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check for connection errors
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include("connection.php"); // Include the database connection
 
 // Create PDF object
 $pdf = new FPDF();
@@ -23,7 +10,7 @@ $pdf->Cell(0, 10, 'Transaction Statement', 0, 1, 'C');
 
 // Retrieve transaction data from the database
 $transactionSql = "SELECT * FROM transactions";
-$transactionResult = $conn->query($transactionSql);
+$transactionResult = $conn2->query($transactionSql);
 
 if ($transactionResult->num_rows > 0) {
     while ($transaction = $transactionResult->fetch_assoc()) {
@@ -45,3 +32,4 @@ $pdf->Output();
 // Close the database connection
 $conn->close();
 ?>
+

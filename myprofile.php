@@ -17,7 +17,7 @@ if (isset($_SESSION['unique_code'])) {
 
     // Fetch the user's email from the database using the unique code
     $sql = "SELECT username, email FROM users WHERE unique_code = '$unique_code'";
-    $result = $conn->query($sql);
+    $result = $conn1->query($sql);
 
     if ($result->num_rows == 1) {
         // If a user with the unique code is found, retrieve the email

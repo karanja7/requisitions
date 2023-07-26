@@ -1,5 +1,8 @@
 <?php
+include("connection.php");
+
 session_start();
+
 // Handle sign-out button click
 if (isset($_POST['sign-out-btn'])) {
     // Destroy the session to log the user out
@@ -8,21 +11,6 @@ if (isset($_POST['sign-out-btn'])) {
     header("Location: login.php");
     exit();
 }
-// Check if form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Database configuration and connection
-  $servername = "localhost";
-  $username = "root";
-  $password = "Gathoni1.";
-  $dbname = "requisition_management";
-
-  // Create a database connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-  // Check for connection errors
-  if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-  }
   
 // Initialize the success and error message variables
 $successMessage = "";
@@ -42,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //$requisitionNumber = generateRequisitionNumber();
 
   // Prepare the SQL statement with placeholders
-  $stmt = $conn->prepare("INSERT INTO requisitions (requester_name, product_details, quantity, supplier, price, delivery_date, department, additional_info) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+  $stmt = $conn2->prepare("INSERT INTO requisitions (requester_name, product_details, quantity, supplier, price, delivery_date, department, additional_info) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
     // Bind the values to the prepared statement
     $stmt->bind_param("ssssdsss", $requesterName, $productDetails, $quantity, $supplier, $price, $deliveryDate, $department, $additionalInfo);
@@ -51,6 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Execute the prepared statement
   if ($stmt->execute()) {
     $successMessage = "Requisition submitted successfully!";
+    // Retrieve the approval status for the specific requisition
+    $requisitionNumber = $conn2->insert_id;
+    $approvalStatus = getApprovalStatus($requisitionNumber);
+
+
       // Redirect to the requisition_list.php page
       header("Location: requisition_list.php");
       exit();
@@ -58,10 +51,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errorMessage = "Error submitting requisition. Please try again.";
       echo "Error: " . $stmt->error;
   }
-//statement and database connection
+//close statement and database connection
   $stmt->close();
-  $conn->close();
 }
+
+// Function to get the approval status for a given requisition number
+function getApprovalStatus($requisitionNumber) {
+  global $conn2;
+  $sql = "SELECT approval_status FROM requisitions WHERE requisition_number = ?";
+  $stmt = $conn2->prepare($sql);
+  $stmt->bind_param("s", $requisitionNumber);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows > 0) {
+      $row = $result->fetch_assoc();
+      return $row['approval_status'];
+  } else {
+      return "Not Found"; // Or any other default value you want to set if the requisition is not found
+  }
+}
+
+
+
 
 // Generate a unique requisition number
 function generateRequisitionNumber() {
@@ -69,7 +81,7 @@ function generateRequisitionNumber() {
   $requisitionNumber = "PO" . time() . rand(100, 999);
   return $requisitionNumber;
 }
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -77,10 +89,10 @@ function generateRequisitionNumber() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REQUISMART Dashboard</title>
+    <title>REQUISMART Requisitions</title>
     <link rel="stylesheet" type="text/css" href="home.css">
     <script src="loginscript.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
 </head>
 <body>
   
@@ -88,9 +100,7 @@ function generateRequisitionNumber() {
         <img src="images/SOLNs.png" alt="REQUISMART Logo" class="logo">
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav> 
-            <a href="#" class="direct"></a>    
-            <a href="#" class="direct"></a>   
-            <a href="#" class="direct"></a>   
+             
         </nav>        
     </div>
     
@@ -279,11 +289,14 @@ autoReorder();
             </div>
             <div>
                 <label for="department" class="req-label" >Department:</label>
-                <input type="text" id="department" name="department"  class="req-input" placeholder="department name" required>
+                <select name="department" id="department"class="req-input" placeholder="department name" required>
+                  <option value="">Select Department</option>
+                  <option value="Production">production</option>
+                  <option value="IT & TECH">IT & TECH</option>
             </div>
             <div>
-                <label for="additional-info" class="req-label">Additional Information:</label>
-                <textarea id="additional-info" name="additionalInfo" placeholder="any specific details or concern of the item" required></textarea>
+                <label for="additional-info" class="req-label" >Additional Information:</label>
+                <textarea id="additional-info" name="additionalInfo" class="req-input" placeholder="any specific details or concern of the item" required></textarea>
             </div>
             <button type="submit">Submit</button>
   </form>

@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 // Handle sign-out button click
 if (isset($_POST['sign-out-btn'])) {
     // Destroy the session to log the user out
@@ -7,6 +7,49 @@ if (isset($_POST['sign-out-btn'])) {
     // Redirect to the login page
     header("Location: login.php");
     exit();
+
+    $sql = "SELECT * FROM budgets";
+    $result = $conn2->query($sql);
+} 
+session_start();
+include("connection.php");
+// Create the 'transactions' table if it doesn't exist
+$createTransactionsTableSql = "CREATE TABLE IF NOT EXISTS transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATE NOT NULL,
+    transaction_type VARCHAR(50) NOT NULL,
+    description TEXT NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    department VARCHAR(100) NOT NULL
+)";
+
+if ($conn2->query($createTransactionsTableSql) === TRUE) {
+    echo "Table 'transactions' created successfully.";
+} else {
+    echo "Error creating table: " . $conn2->error;
+}
+
+
+        // Handle the form submission for inserting budget data
+if (isset($_POST['insert_budget'])) {
+    $department = $_POST['department'];
+    $allocatedBudget = $_POST['allocated_budget'];
+    $startDate = $_POST['start_date'];
+    $endDate = $_POST['end_date'];
+    $description = $_POST['description'];
+
+    // Insert the budget data into the budgets table
+    $insertBudgetSql = "INSERT INTO budgets (department, allocated_budget, spending_to_date, remaining_balance, start_date, end_date, description) VALUES (?, ?, 0, ?, ?, ?, ?)";
+    $insertBudgetStmt = $conn->prepare($insertBudgetSql);
+    // Set the remaining balance to the allocated budget initially
+    $remainingBalance = $allocatedBudget;
+    $insertBudgetStmt->bind_param("sddsss", $department, $allocatedBudget, $remainingBalance, $startDate, $endDate, $description);
+    if ($insertBudgetStmt->execute()) {
+        echo "Budget inserted successfully.";
+    } else {
+        echo "Error inserting budget: " . $insertBudgetStmt->error;
+    }
+    $insertBudgetStmt->close();
 }
 ?>
 
@@ -55,59 +98,73 @@ if (isset($_POST['sign-out-btn'])) {
     <div class="main-content">
         <!-- Budgets content goes here -->
         <h1>Budgets</h1>
+
         <div class="tabular--wrapper">
-            <h3 class="main-title">Today's Financial Data</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Transaction Type</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                            <th>Category</th>
-                            <th>status</th>
-                            <th>Action</th>
-                        </tr>
-                     </thead>
-                        <tbody>
-                            <tr>
-                                <td> 2023-06-29</td>
-                                <td>Expenses</td>
-                                <td>Office Supplies</td>
-                                <td>$250</td>
-                                <td>office Expenses</td>
-                                <td>Pending</td>
-                                <td><button>Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td> 2023-06-29</td>
-                                <td>Income</td>
-                                <td>Client Payment</td>
-                                <td>$250</td>
-                                <td>Sales</td>
-                                <td>Completed</td>
-                                <td><button>Edit</button></td>
-                            </tr>
-                            <tr>
-                                <td> 2023-06-29</td>
-                                <td>Expenses</td>
-                                <td>Goods Transport</td>
-                                <td>$250</td>
-                                <td>Transport</td>
-                                <td>Pending</td>
-                                <td><button>Edit</button></td>
-                            </tr>      
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="7">Total: $1,100</td>
-                            </tr>
-                        </tfoot>
-                </table>
-            </div>
-        </div>
-        
+    <h3 class="main-title">Transaction History</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Transaction Type</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Retrieve transaction history from the database
+                $transactionSql = "SELECT * FROM transactions";
+                $transactionResult = $conn2->query($transactionSql);
+
+                if ($transactionResult->num_rows > 0) {
+                    while ($transaction = $transactionResult->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $transaction['date'] . "</td>";
+                        echo "<td>" . $transaction['transaction_type'] . "</td>";
+                        echo "<td>" . $transaction['description'] . "</td>";
+                        echo "<td>$" . $transaction['amount'] . "</td>";
+                        echo "<td>" . $transaction['department'] . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='5'>No transactions found.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+ <!-- Add a form for manual budget insertion -->
+<form method="post">
+    <label for="department">Department:</label>
+    <input type="text" name="department" required>
+
+    <label for="allocated_budget">Allocated Budget:</label>
+    <input type="number" step="0.01" name="allocated_budget" required>
+
+    <label for="start_date">Start Date:</label>
+    <input type="date" name="start_date" required>
+
+    <label for="end_date">End Date:</label>
+    <input type="date" name="end_date" required>
+
+    <label for="description">Description:</label>
+    <textarea name="description" rows="3"></textarea>
+
+    <button type="submit" name="insert_budget">Insert Budget</button>
+</form>
+
+<div class="tabular--wrapper">
+    <h3 class="main-title">Download Statement</h3>
+    <div class="table-container">
+        <a href="generate_statement.php" target="_blank">Download Statement</a>
+    </div>
+</div>
+
     
         <div class="budget-item">
             <div class="budget-card">

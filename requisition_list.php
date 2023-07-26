@@ -7,11 +7,11 @@ $password = "Gathoni1.";
 $dbname = "requisition_management";
 
 // Create a database connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn2 = new mysqli($servername, $username, $password, $dbname);
 
 // Check for connection errors
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($conn2->connect_error) {
+    die("Connection failed: " . $conn2->connect_error);
 }
 
 if (isset($_GET['error'])) {
@@ -23,17 +23,17 @@ if (isset($_GET['delete_id'])) {
     $deleteId = $_GET['delete_id'];
     // Delete the requisition from the database
     $deleteSql = "DELETE FROM requisitions WHERE requisition_number = '$deleteId'";
-    if ($conn->query($deleteSql) === TRUE) {
+    if ($conn2->query($deleteSql) === TRUE) {
         echo "Requisition deleted successfully.";
     } else {
-        echo "Error deleting requisition: " . $conn->error;
+        echo "Error deleting requisition: " . $conn2->error;
     }
 }
 
 // Retrieve requisition data from the database for a specific department
 $department = "production"; // Replace with the desired department name or get it dynamically from the user
 $sql = "SELECT * FROM requisitions WHERE department = '$department'";
-$result = $conn->query($sql);
+$result = $conn2->query($sql);
 
 ?>
 
@@ -131,7 +131,7 @@ $result = $conn->query($sql);
 
 <?php
 // Close the database connection
-$conn->close();
+$conn2->close();
 ?>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
