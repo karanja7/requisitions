@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("connection.php");
-require('fpdf.php'); // Include the FPDF library
+require('fpdf186/fpdf.php'); // Include the FPDF library
 
 // Handle sign-out button click
 if (isset($_POST['sign-out-btn'])) {
@@ -13,6 +13,7 @@ if (isset($_POST['sign-out-btn'])) {
 }
 
 // Function to generate and download the PDF report for budgets
+
 function generateBudgetsReport($conn2) {
     // Fetch budget details from the database
     $sql = "SELECT * FROM budgets";
@@ -28,7 +29,7 @@ function generateBudgetsReport($conn2) {
         // Add content (budget details) to the PDF
         while ($row = $result->fetch_assoc()) {
             $pdf->Ln();
-            $pdf->Cell(40, 10, 'Budget Name: ' . $row['budget_name']);
+            $pdf->Cell(40, 10, 'Budget Name: ' . $row['department']);
             $pdf->Cell(40, 10, 'Amount: ' . $row['amount']);
             // Add more fields from the budget table as needed
         }
@@ -71,7 +72,7 @@ function generateRequisitionsReport($conn2) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['generate-budgets-report-btn'])) {
-        generateBudgetsReport($conn);
+        generateBudgetsReport($conn2);
     } elseif (isset($_POST['generate-requisitions-report-btn'])) {
         generateRequisitionsReport($conn);
     }
@@ -83,18 +84,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REQUISMART | reports</title>
+    <title>REQUISMART | Reports</title>
     <link rel="stylesheet" type="text/css" href="home.css">
     <script src="loginscript.js"></script>
 </head>
 <body>
     <div class="header">
-        <img src="images/SOLNs.png" alt="REQUISMART Logo" class="logo">
+        <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav>    
 
         </nav>
-        
     </div>
     
     <div class="sidebar">
@@ -140,4 +140,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
-<?php
+

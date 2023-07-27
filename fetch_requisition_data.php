@@ -6,14 +6,14 @@ $username = "root";
 $password = "Gathoni1.";
 $dbname = "requisition_management";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn2 = new mysqli($servername, $username, $password, $dbname);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($conn2->connect_error) {
+    die("Connection failed: " . $conn2->connect_error);
 }
 
 $sql = "SELECT product_name, remaining_quantity, total_quantity FROM products";
-$result = $conn->query($sql);
+$result = $conn2->query($sql);
 
 $data = array();
 if ($result->num_rows > 0) {
@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
     }
 }
 
-$conn->close();
+$conn2->close();
 
 // Return the data as JSON
 header('Content-Type: application/json');

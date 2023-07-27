@@ -15,16 +15,16 @@ $password = "Gathoni1.";
 $dbname = "requisition_management";
 
 // Create a database connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn2 = new mysqli($servername, $username, $password, $dbname);
 
 // Check for connection errors
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($conn2->connect_error) {
+    die("Connection failed: " . $conn2->connect_error);
 }
 
 // Retrieve the requisition details from the database based on the requisition number
 $sql = "SELECT * FROM requisitions WHERE requisition_number = '$requisitionNumber'";
-$result = $conn->query($sql);
+$result = $conn2->query($sql);
 
 if ($result->num_rows > 0) {
     // Fetch the requisition details
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Update the requisition details in the database
     $sql = "UPDATE requisitions SET requester_name = ?, product_details = ?, quantity = ?, price = ?, delivery_date = ?, department = ?, additional_info = ? WHERE requisition_number = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $conn2->prepare($sql);
     $stmt->bind_param("ssidsiss", $requesterName, $productDetails, $quantity, $price, $deliveryDate, $department, $additionalInfo, $requisitionNumber);
 
     if ($stmt->execute()) {
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
 }
 
-$conn->close();
+$conn2->close();
 ?>
 
 <!-- HTML and form for editing the requisition details -->

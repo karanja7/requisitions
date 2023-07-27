@@ -1,5 +1,4 @@
 <?php
-
 // Handle sign-out button click
 if (isset($_POST['sign-out-btn'])) {
     // Destroy the session to log the user out
@@ -24,7 +23,7 @@ $createTransactionsTableSql = "CREATE TABLE IF NOT EXISTS transactions (
 )";
 
 if ($conn2->query($createTransactionsTableSql) === TRUE) {
-    echo "Table 'transactions' created successfully.";
+    echo "";
 } else {
     echo "Error creating table: " . $conn2->error;
 }
@@ -40,7 +39,7 @@ if (isset($_POST['insert_budget'])) {
 
     // Insert the budget data into the budgets table
     $insertBudgetSql = "INSERT INTO budgets (department, allocated_budget, spending_to_date, remaining_balance, start_date, end_date, description) VALUES (?, ?, 0, ?, ?, ?, ?)";
-    $insertBudgetStmt = $conn->prepare($insertBudgetSql);
+    $insertBudgetStmt = $conn2->prepare($insertBudgetSql);
     // Set the remaining balance to the allocated budget initially
     $remainingBalance = $allocatedBudget;
     $insertBudgetStmt->bind_param("sddsss", $department, $allocatedBudget, $remainingBalance, $startDate, $endDate, $description);
@@ -58,14 +57,14 @@ if (isset($_POST['insert_budget'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REQUISMART Dashboard</title>
+    <title>REQUISMART | Budgets</title>
     <link rel="stylesheet" type="text/css" href="home.css">
     <script src="script.js"></script>
     
 </head>
 <body>
     <div class="header">
-        <img src="images/SOLNs.png" alt="REQUISMART Logo" class="logo">
+        <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav> 
         <a href="#main" class="direct"></a>
@@ -140,63 +139,58 @@ if (isset($_POST['insert_budget'])) {
 
  <!-- Add a form for manual budget insertion -->
 <form method="post">
-    <label for="department">Department:</label>
-    <input type="text" name="department" required>
+    <label for="department" class="req-label">Department:</label>
+    <input type="text" name="department" class="req-input" required>
 
-    <label for="allocated_budget">Allocated Budget:</label>
-    <input type="number" step="0.01" name="allocated_budget" required>
+    <label for="allocated_budget" class="req-label">Allocated Budget:</label>
+    <input type="number" step="0.01" name="allocated_budget" class="req-input" required>
 
-    <label for="start_date">Start Date:</label>
-    <input type="date" name="start_date" required>
+    <label for="start_date" class="req-label">Start Date:</label>
+    <input type="date" name="start_date" class="req-input" required>
 
-    <label for="end_date">End Date:</label>
-    <input type="date" name="end_date" required>
+    <label for="end_date" class="req-label">End Date:</label>
+    <input type="date" name="end_date" class="req-input" required>
 
-    <label for="description">Description:</label>
-    <textarea name="description" rows="3"></textarea>
+    <label for="description" class="req-label">Description:</label>
+    <textarea name="description" class="req-input" rows="3"></textarea>
 
     <button type="submit" name="insert_budget">Insert Budget</button>
 </form>
+    <div class="budget-item">
+        <div class="budget-card">
+            <div class="budget-title">PRODUCTION Budget</div>
+            <div class="budget-amount">Total Amount: $10,000</div>
+            <div class="budget-spending">Spending to Date: $4,500</div>
+            <div class="budget-remaining">Remaining Balance: $5,500</div>
+            <div class="budget-details">
+                <p>Description: This budget is allocated for marketing campaigns.</p>
+                <p>Start Date: January 1, 2023</p>
+                <p>End Date: December 31, 2023</p>
+            </div>
+        </div>
+    </div>
 
-<div class="tabular--wrapper">
-    <h3 class="main-title">Download Statement</h3>
-    <div class="table-container">
-        <a href="generate_statement.php" target="_blank">Download Statement</a>
+    <div class="budget-item">
+        <div class="budget-card">
+            <div class="budget-title">IT & TECH Budget</div>
+            <div class="budget-amount">Total Amount: $20,000</div>
+            <div class="budget-spending">Spending to Date: $15,000</div>
+            <div class="budget-remaining">Remaining Balance: $5,000</div>
+            <div class="budget-details">
+                <p>Description: This budget is allocated for IT infrastructure and software.</p>
+                <p>Start Date: January 1, 2023</p>
+                <p>End Date: December 31, 2023</p>
+            </div>
+        </div>
+    </div>
+    <div class="tabular--wrapper">
+                <h3 class="main-title">Download Statement</h3>
+        <div class="table-container">
+            <a href="generate_statement.php" target="_blank">Download Statement</a>
+        </div>
     </div>
 </div>
-
-    
-        <div class="budget-item">
-            <div class="budget-card">
-                <div class="budget-title">PRODUCTION Budget</div>
-                <div class="budget-amount">Total Amount: $10,000</div>
-                <div class="budget-spending">Spending to Date: $4,500</div>
-                <div class="budget-remaining">Remaining Balance: $5,500</div>
-                <div class="budget-details">
-                    <p>Description: This budget is allocated for marketing campaigns.</p>
-                    <p>Start Date: January 1, 2023</p>
-                    <p>End Date: December 31, 2023</p>
-                </div>
-            </div>
-        </div>
-    
-        <div class="budget-item">
-            <div class="budget-card">
-                <div class="budget-title">IT & TECH Budget</div>
-                <div class="budget-amount">Total Amount: $20,000</div>
-                <div class="budget-spending">Spending to Date: $15,000</div>
-                <div class="budget-remaining">Remaining Balance: $5,000</div>
-                <div class="budget-details">
-                    <p>Description: This budget is allocated for IT infrastructure and software.</p>
-                    <p>Start Date: January 1, 2023</p>
-                    <p>End Date: December 31, 2023</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

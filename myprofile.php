@@ -41,13 +41,13 @@ if (isset($_SESSION['unique_code'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REQUISMART Dashboard</title>
+    <title>REQUISMART |My profile</title>
     <link rel="stylesheet" type="text/css" href="home.css">
     <script src="loginscript.js"></script>
 </head>
 <body>
     <div class="header">
-        <img src="images/SOLNs.png" alt="REQUISMART Logo" class="logo">
+        <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav>   
 
@@ -78,8 +78,8 @@ if (isset($_SESSION['unique_code'])) {
     </div>
     
     <div class="main-content">
+    <!-- my profile content  -->
         <h1>My Profile </h1>
-        <!-- my profile content goes here -->
         <form action="update_profile.php" method="POST">
         <label for="username">Username:</label>
         <input type="text" name="username" value="<?php echo $username; ?>" required><br>

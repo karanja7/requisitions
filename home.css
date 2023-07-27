@@ -360,6 +360,10 @@ tfoot td{
   border-radius: 4px;
   box-sizing: border-box;
 }
+textarea#additional-info {
+  margin-left: 160px;
+}
+
 
 /* Styles for the submit button */
 #requisition-form button[type="submit"] {

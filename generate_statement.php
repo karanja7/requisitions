@@ -1,5 +1,5 @@
 <?php
-require('fpdf/fpdf.php');
+require('fpdf186/fpdf.php');
 include("connection.php"); // Include the database connection
 
 // Create PDF object
@@ -30,6 +30,6 @@ if ($transactionResult->num_rows > 0) {
 $pdf->Output();
 
 // Close the database connection
-$conn->close();
+$conn2->close();
 ?>
 

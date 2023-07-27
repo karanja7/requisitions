@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Check if the user exists in the database
     $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = $conn->query($sql);
+    $result = $conn1->query($sql);
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();

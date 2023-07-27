@@ -68,14 +68,11 @@ function getApprovalStatus($requisitionNumber) {
       $row = $result->fetch_assoc();
       return $row['approval_status'];
   } else {
-      return "Not Found"; // Or any other default value you want to set if the requisition is not found
+      return "Not Found"; // Open to changes
   }
 }
 
-
-
-
-// Generate a unique requisition number
+// Generate a unique requisition number for each requisition
 function generateRequisitionNumber() {
   // use combination of timestamp and a random number
   $requisitionNumber = "PO" . time() . rand(100, 999);
@@ -89,7 +86,7 @@ function generateRequisitionNumber() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REQUISMART Requisitions</title>
+    <title>REQUISMART | Requisitions</title>
     <link rel="stylesheet" type="text/css" href="home.css">
     <script src="loginscript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
@@ -97,7 +94,7 @@ function generateRequisitionNumber() {
 <body>
   
     <div class="header">
-        <img src="images/SOLNs.png" alt="REQUISMART Logo" class="logo">
+        <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav> 
              
@@ -133,39 +130,6 @@ function generateRequisitionNumber() {
       </div>
        
         <!-- Requisitions content-->
-        <?php
-// Assume the following function fetches the remaining quantities of items in stock from the database
-function fetchRemainingQuantities() {
-    // i'm supposed to replace with own database query to fetch the remaining quantities
-    // i might want to join the requisitions table with the products table to get the current stock status
-    $data = [
-        ['product_name' => 'ICT products', 'remaining_quantity' => 10, 'total_quantity' => 100],
-        ['product_name' => 'Records products', 'remaining_quantity' => 15, 'total_quantity' => 50],
-        // Add more items as needed
-    ];
-    return $data;
-}
-
-// Function to automatically reorder items if the remaining quantity is below the threshold
-function autoReorder() {
-    $data = fetchRemainingQuantities();
-    $threshold = 5; // Set the threshold for reordering
-
-    // Check if any item's remaining quantity is below the threshold
-    foreach ($data as $item) {
-        if ($item['remaining_quantity'] < $threshold) {
-            // Perform the automatic reorder process here
-            // For demonstration purposes, we will just print a message
-            echo "Automatic reorder triggered for: " . $item['product_name'] . "\n";
-            // You can also include code to send an email/notification to the supplier for automatic reordering
-        }
-    }
-}
-
-// Call the autoReorder function to trigger the automatic reorder process
-autoReorder();
-?>
-
 
 <section>
   <h2>Remaining Stock</h2>
@@ -173,6 +137,65 @@ autoReorder();
     <canvas id="remainingChart"></canvas>
   </div>
 </section>
+
+  <section>
+  <?php if (!empty($successMessage)): ?>
+        <p style="color: green;">
+            <?= $successMessage ?>
+        </p>
+    <?php endif; ?>
+
+    <?php if (!empty($errorMessage)): ?>
+        <p style="color: red;">
+            <?= $errorMessage ?>
+        </p>
+    <?php endif; ?>
+        <form id="requisition-form"method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <h2>Create Requisition</h2>
+            <div>
+                <label for="requester-name" class="req-label">Requester's Name:</label>
+                <input type="text" id="requester-name" name="requesterName" class="req-input" placeholder="Your name" required>
+            </div>
+            <div class="">
+                <label for="product-details" class="req-label">Product Details:</label>
+                <input type="text" id="product-details" name="productDetails" class="req-input" placeholder="product name/identity" required>
+            </div>
+            <div>
+                <label for="quantity" class="req-label">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" class="req-input" placeholder="Items/pieces" required>
+            </div>
+            <div>
+                <label for="supplier" class="req-label">supplier:</label>
+                <select type="number" id="supplier" name="supplier" class="req-input" required>
+                    <option value="#"selected="selected">Choose supplier</option>
+                    <option value="karani">karani suppliers</option>
+                    <option value="KCL">KCL suppliers</option>
+                    <option value="bidco">bidco suppliers</option>
+                  </select> 
+            </div>
+            <div>
+                <label for="price" class="req-label">Price:</label>
+                <input type="number" id="price" name="price" class="req-input" placeholder="Ksh per item/piece" required>
+            </div>
+            <div>
+                <label for="delivery-date" class="req-label">Delivery Date:</label>
+                <input type="date" id="delivery-date" name="deliveryDate" class="req-input" required>
+            </div>
+            <div>
+                <label for="department" class="req-label" >Department:</label>
+                <select name="department" id="department"class="req-input" placeholder="department name" required>
+                  <option value="">Select Department</option>
+                  <option value="Production">production</option>
+                  <option value="IT & TECH">IT & TECH</option>
+            </div>
+            <div>
+                <label for="additional-info" class="req-label" >Additional Information:</label>
+                <textarea id="additional-info" name="additionalInfo" class="req-input" placeholder="any specific details or concern of the item" required></textarea>
+            </div>
+            <button type="submit">Submit</button>
+  </form>
+  </section>
+</div>
 
 <!-- JavaScript to fetch data and render the chart -->
 <script>
@@ -244,67 +267,9 @@ autoReorder();
   }
 </script>
 
-  <section>
-  <?php if (!empty($successMessage)): ?>
-        <p style="color: green;">
-            <?= $successMessage ?>
-        </p>
-    <?php endif; ?>
-
-    <?php if (!empty($errorMessage)): ?>
-        <p style="color: red;">
-            <?= $errorMessage ?>
-        </p>
-    <?php endif; ?>
-        <form id="requisition-form"method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <h2>Create Requisition</h2>
-            <div>
-                <label for="requester-name" class="req-label">Requester's Name:</label>
-                <input type="text" id="requester-name" name="requesterName" class="req-input" placeholder="Your name" required>
-            </div>
-            <div class="">
-                <label for="product-details" class="req-label">Product Details:</label>
-                <input type="text" id="product-details" name="productDetails" class="req-input" placeholder="product name/identity" required>
-            </div>
-            <div>
-                <label for="quantity" class="req-label">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" class="req-input" placeholder="Items/pieces" required>
-            </div>
-            <div>
-                <label for="supplier" class="req-label">supplier:</label>
-                <select type="number" id="supplier" name="supplier" class="req-input" required>
-                    <option value="#"selected="selected">Choose supplier</option>
-                    <option value="karani">karani suppliers</option>
-                    <option value="KCL">KCL suppliers</option>
-                    <option value="bidco">bidco suppliers</option>
-                  </select> 
-            </div>
-            <div>
-                <label for="price" class="req-label">Price:</label>
-                <input type="number" id="price" name="price" class="req-input" placeholder="Ksh per item/piece" required>
-            </div>
-            <div>
-                <label for="delivery-date" class="req-label">Delivery Date:</label>
-                <input type="date" id="delivery-date" name="deliveryDate" class="req-input" required>
-            </div>
-            <div>
-                <label for="department" class="req-label" >Department:</label>
-                <select name="department" id="department"class="req-input" placeholder="department name" required>
-                  <option value="">Select Department</option>
-                  <option value="Production">production</option>
-                  <option value="IT & TECH">IT & TECH</option>
-            </div>
-            <div>
-                <label for="additional-info" class="req-label" >Additional Information:</label>
-                <textarea id="additional-info" name="additionalInfo" class="req-input" placeholder="any specific details or concern of the item" required></textarea>
-            </div>
-            <button type="submit">Submit</button>
-  </form>
-  </section>
 </body>
 </html>
-        
-    </div>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

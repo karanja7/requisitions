@@ -17,13 +17,13 @@ include("connection.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REQUISMART Dashboard</title>
+    <title>REQUISMART | FAQs</title>
     <link rel="stylesheet" type="text/css" href="home.css">
     <script src="loginscript.js"></script>
 </head>
 <body>
     <div class="header">
-        <img src="images/SOLNs.png" alt="REQUISMART Logo" class="logo">
+        <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav> 
             <a href="#" class="direct"></a>    

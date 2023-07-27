@@ -12,12 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql = "INSERT INTO users (username, email, password, unique_code) 
             VALUES ('$username', '$email', '$password', '$unique_code')";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($conn1->query($sql) === TRUE) {
         // Redirect to the login page after successful registration
         header("Location: login.php");
         exit();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $sql . "<br>" . $conn1->error;
     }
 }
 ?>
