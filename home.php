@@ -19,6 +19,7 @@ if (isset($_POST['sign-out-btn'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartREQ Dashboard | welcome</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="home.css">
     <script src="loginscript.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
