@@ -94,7 +94,7 @@ function generateRequisitionNumber() {
 <body>
   
     <div class="header">
-        <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
+        <a href="home.php"><img src="images/smart REQ logo.png" alt="SmartREQ " class="logo"></a>
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav> 
              
@@ -221,7 +221,7 @@ function generateRequisitionNumber() {
           {
             label: 'Remaining Quantity',
             data: remainingQuantities,
-            backgroundColor: 'rgba(75, 192, 192, 0.6)', // Change the color and opacity of the bars
+            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Change the color and opacity of the bars
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
           },
@@ -266,9 +266,6 @@ function generateRequisitionNumber() {
     });
   }
 </script>
-
-</body>
-</html>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

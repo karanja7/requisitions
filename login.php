@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RequiSmart </title>
+    <title>SmartREQ </title>
          <link rel="stylesheet" href="login.css">
          <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,10 +14,9 @@
 
 <body>
     <header>
-        <h2 class="logo">REQUISMART <br></h2>
-        <h3>COMPANY BUDGETS AND REQUISITIONS MANAGEMENT SYSTEM</h3>
+        <h2 class="logo">SmartREQ<br></h2>
+        <h3> A REQUISITION AND MANAGEMENT SYSTEM</h3>
         <nav class="navigation ">
-            <a href="">Login</a>
             <a href="#">Register</a>
             <button class="btnlogin-popup" >login</button>
         </nav>
@@ -82,7 +81,7 @@
                 <div class="remember-forgot">
                     <label ><input type="checkbox">I agree to the terms & conditions </label>
             </div>
-            <input type="submit" class="btn">Register</input>
+            <button type="submit" class="btn">Register</button>
             <div class="login-register">
                 <p>Already have an account? <a href="login.php" class="login-link">Login</a></p>
             </div>

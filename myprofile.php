@@ -47,7 +47,7 @@ if (isset($_SESSION['unique_code'])) {
 </head>
 <body>
     <div class="header">
-        <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
+        <a href="home.php"><img src="images/smart REQ logo.png" alt="SmartREQ " class="logo"></a>
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav>   
 

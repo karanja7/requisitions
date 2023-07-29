@@ -164,7 +164,7 @@ font-family: 'palatino';
   width: 380px;
 }
 #main .container{
-  font-family: 'palatino';
+  font-family: 'palatino' sans-serif;
   font-size: 15px;
   margin-left: 260px;
       
@@ -181,7 +181,7 @@ font-family: 'palatino';
 aside#sidebar{
   float: right;
   width: 30%;
-  margin-top: 10px;
+  margin-top: 90px;
 }
 
 article#main-col{
@@ -190,11 +190,13 @@ article#main-col{
 
 }
 #help-support {
+  font-family: 'palatino' sans-serif;
   float: left;
   padding: 20px;
 }
 
 #help-support h2 {
+  font-family: 'palatino' sans-serif;
   text-align: center;
   margin-bottom: 30px;
 }

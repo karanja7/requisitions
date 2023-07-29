@@ -82,7 +82,7 @@ $result = $conn2->query($sql);
 </head>
 <body>
 <div class="reqpageheader">
-        <a href="home.php"><img src="images/SOLNs.png" alt="REQUISMART " class="logo"></a>
+        <a href="home.php"><img src="images/smart REQ logo.png" alt="SmartREQ " class="logo"></a>
         <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
         <nav> 
             

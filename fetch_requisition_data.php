@@ -11,19 +11,27 @@ $conn2 = new mysqli($servername, $username, $password, $dbname);
 if ($conn2->connect_error) {
     die("Connection failed: " . $conn2->connect_error);
 }
+function fetchRemainingQuantities()
+{
+    global $conn2; // Make the $conn2 variable accessible inside the function
+    $query = "SELECT product_name,  total_quantity, remaining_quantity FROM products";
+    $result = $conn2->query($query);
 
-$sql = "SELECT product_name, remaining_quantity, total_quantity FROM products";
-$result = $conn2->query($sql);
-
-$data = array();
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+    $data = array();
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
     }
+    return $data;
 }
 
+$data = fetchRemainingQuantities();
+
+// Close the database connection
 $conn2->close();
 
 // Return the data as JSON
 header('Content-Type: application/json');
 echo json_encode($data);
+?>
