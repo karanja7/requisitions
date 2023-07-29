@@ -62,6 +62,7 @@ $conn2->close();
 <html>
 <head>
     <title>Requisition Details</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
 <body>
     <h1>Requisition Details</h1>

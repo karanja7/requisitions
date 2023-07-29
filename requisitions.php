@@ -86,7 +86,8 @@ function generateRequisitionNumber() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REQUISMART | Requisitions</title>
+    <title>SmartREQ | Requisitions</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="home.css">
     <script src="loginscript.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>

@@ -44,6 +44,7 @@ $result = $conn2->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Requisition List</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="home.css">
     <style>
         body{
