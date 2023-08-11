@@ -63,6 +63,62 @@ $conn2->close();
 <head>
     <title>Requisition Details</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 15;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: bold;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+button.approve {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+button.deny {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+button.approve:hover, button.deny:hover {
+    opacity: 0.8;
+}
+
+
+    </style>
 </head>
 <body>
     <h1>Requisition Details</h1>
@@ -78,11 +134,11 @@ $conn2->close();
         <p><strong>Approval Status:</strong> <?php echo $requisition['approval_status']; ?></p>
 
         <!-- Add buttons for Approve and Deny -->
-        <form method="post">
+        <!--<form method="post">
             <input type="hidden" name="requisition_number" value="<?php echo $requisition['requisition_number']; ?>">
             <button type="submit" name="approve-btn">Approve</button>
             <button type="submit" name="deny-btn">Deny</button>
-        </form>
+        </form>*-->
     <?php endif; ?>
 </body>
 </html>

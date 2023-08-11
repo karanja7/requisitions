@@ -27,5 +27,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "User not found";
     }
-}
+    $stmt = $conn1->prepare("select * from users where email = ? AND password = ?");
+    $stmt->bind_param("ss", $admission, $passworda);
+    $stmt->execute();
+    $stmt_result = $stmt->get_result();
+    if($stmt_result->num_rows > 0) {
+      $data = $stmt_result->fetch_assoc();
+      if($data['role'] == "admin") {
+        echo '
+    <script>
+    alert("login successful");
+    header("Location: admin_page.php");
+    </script>
+    ';
+      }else {
+        echo '
+    <script>
+    alert("login successful");
+    header("Location: home.php");
+    </script>
+    ';
+      }
+    }else {
+      echo '
+      <script>
+      alert("Invalid admission or password");
+      header("Location: login.php");
+      </script>
+      ';
+    }
+  }
+
 ?>

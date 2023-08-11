@@ -185,6 +185,7 @@ aside#sidebar{
 }
 
 article#main-col{
+  margin-top: 20px;
   float: left;
   width: 65%;
 
@@ -331,10 +332,16 @@ tfoot td{
 .directory a {
   padding-right: 20px;
   margin-right: 10px;
+  background-color: #333652;
   text-decoration: none;
   color: #333;
 }
 
+/* Styles for the chart */
+.chart-container {
+  width: 400px;
+  height: 300px;
+}
 /* Styles for the form container */
 #requisition-form {
   width: 600px;

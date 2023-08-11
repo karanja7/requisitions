@@ -29,7 +29,7 @@ if (isset($_POST['sign-out-btn'])) {
 <body>
     <div class="header">
         <a href="home.php"><img src="images/smart REQ logo.png" alt="SmartREQ " class="logo"></a>
-        <a href="home.php" ><ion-icon name="home-sharp"></ion-icon></a>
+        <a href="home.php" ><ion-icon name="home-sharp">home</ion-icon></a>
         <nav> 
             <a href="#main" class="direct">About Us</a>
             <a href="#help-support" class="direct">Help & support</a>     
@@ -69,7 +69,7 @@ if (isset($_POST['sign-out-btn'])) {
         <section id="boxes">
             <div class="container">
                 <div class="box">
-                    <img src="images/management.jpg" alt="Financial Management Dashboard">
+                    <a href="budgets.php"><img src="images/management.jpg" alt="Financial Management Dashboard"></a>
                     <h3>Financial Management Dashboard</h3>
                     <p>Our financial overview service provides detailed insight into your budgets, expenses, and requisitions in a formal tone.</p>
 
@@ -77,14 +77,14 @@ if (isset($_POST['sign-out-btn'])) {
                 <div class="box">
                     <div class="overlay"></div>
                     <img src="images/assistance.jpg" alt="Budget and Requisition Management Assistance">
-                    <h3>Budget and Requisition Management Assistance</h3>
-                    <p>The Help and Support section provides users with access to resources and assistance for any issues or queries they may have, in a formal tone.</p>
+                    <h3>Reporting and analytical capabilities.</h3>
+                    <p>The Help and Support section allowing organizations to generate detailed financial reports and analyze financial data.</p>
 
                 </div>
                 <div class="box">
                     <img src="images/tool.jpg" alt="Requisition Management Tool">
                     <h3>Requisition Management Tool</h3>
-                    <p>To submit a new requisition, access the Requisitions Management section and follow the necessary steps</p>
+                    <p>To submit a new requisition, access the Requisitions Management section and follow the necessary steps. </p>
 
                 </div>
             </div>

@@ -72,6 +72,16 @@ function getApprovalStatus($requisitionNumber) {
   }
 }
 
+$sql = "SELECT product_name, total_quantity, remaining_quantity FROM products";
+$result = $conn2->query($sql);
+
+$data = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+}
+
 // Generate a unique requisition number for each requisition
 function generateRequisitionNumber() {
   // use combination of timestamp and a random number
@@ -123,11 +133,11 @@ function generateRequisitionNumber() {
               <button type="submit" id="sign-out-btn" name="sign-out-btn"> <ion-icon name="log-out"></ion-icon> Sign Out</button>
           </form>
        </div>
-<!--           main content              -->
+<!--  main content   -->
     <div class="main-content">
         <div class="directory">
           <h1>REQUISITIONS</h1>
-          <h3><a href="requisition_list.php" class="direct">Requisition List</a></h3>
+          <h3><a href="requisition_details.php" class="direct">view my requisition status</a></h3>
       </div>
        
         <!-- Requisitions content-->
@@ -135,8 +145,87 @@ function generateRequisitionNumber() {
 <section>
   <h2>Remaining Stock</h2>
   <div class="chart-container">
-    <canvas id="remainingChart"></canvas>
+    <canvas id="productChart"></canvas>
   </div>
+  <script>
+        // Extract data for chart labels and values
+        const labels = <?php echo json_encode(array_column($data, 'product_name')); ?>;
+        const totalQuantities = <?php echo json_encode(array_column($data, 'total_quantity')); ?>;
+        const remainingQuantities = <?php echo json_encode(array_column($data, 'remaining_quantity')); ?>;
+        
+        // Check if any item's remaining quantity is below 15% of the total quantity
+        const threshold = 0.15;
+        const reorderQuantities = totalQuantities.map((total, index) => {
+            if (remainingQuantities[index] < total * threshold) {
+                return total * 0.9; // Reorder 90% of the total quantity
+            } else {
+                return null;
+            }
+        });
+
+        // Chart configuration
+        const ctx = document.getElementById('productChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Total Quantity',
+                        data: totalQuantities,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Remaining Quantity',
+                        data: remainingQuantities,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Reorder Quantity',
+                        data: reorderQuantities,
+                        backgroundColor: 'rgba(255, 206, 86, 0.6)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            display: true
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    title: {
+                        display: false
+                    }
+                }
+            }
+        });
+    </script>
+
+
 </section>
 
   <section>
