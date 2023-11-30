@@ -144,6 +144,153 @@ if (isset($_POST['sign-out-btn'])) {
         <a href="https://facebook.com" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
         <a href="https://instagram.com" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a>
     </div> 
+
+    <footer>
+            <div class="footer-wrapper">
+
+                <div class="social-wrapper">
+                    <div class='social-links'>
+                        <ul>
+                            <li>
+                                <a href="#" title="Instagram">
+                                    <img src="images/instagram.svg" alt='Instagram'>                       
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="Linkedin">
+                                    <img src="images/linkedin.svg" alt='Linkedin'>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="Twitter">
+                                    <img src="images/twitter.svg" alt='Twitter'>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="Youtube">
+                                    <img src="images/youtube.svg" alt='YouTube'>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="GitHub">
+                                    <img src="images/github.svg" alt='GitHub'>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+              
+                <div class="footer-columns">
+                    <div class="footer-links">
+                        <div class="footer-logo">
+                            <svg width="1103" height="996" viewBox="0 0 1103 996" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M410.988 255.56L0 995.337H189.802L505.141 427.427L410.988 255.56ZM1102.94 995.337L647.119 170.373L551.471 0L457.317 170.373L551.471 340.746L711.79 629.718H498.683L405.461 786.972H799.034L914.634 995.337H1102.94Z" fill="#FAFBFC"/>
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M410.988 255.56L0 995.337H189.802L505.141 427.427L410.988 255.56ZM1102.94 995.337L647.119 170.373L551.471 0L457.317 170.373L551.471 340.746L711.79 629.718H498.683L405.461 786.972H799.034L914.634 995.337H1102.94Z" fill="#FAFBFC"/>
+                            </svg>
+                        </div>
+                        <section>
+                            <h3>Product</h3>
+                            <ul>
+                                <li>
+                                    <a href="#" title="API">API</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Pricing">Pricing</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Documentation">Documentation</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Release Notes">Release Notes</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Status">Status</a>
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h3>Resources</h3>
+                            <ul>
+                                <li>
+                                    <a href="#" title="Support">Support</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Sitemap">Sitemap</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Newsletter">Newsletter</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Help Centre">Help Centre</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Investor">Investor</a>
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h3>Company</h3>
+                            <ul>
+                                <li>
+                                    <a href="#" title="About Us">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Blog">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Careers">Careers</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Press">Press</a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Contact">Contact</a>
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h3>Legal</h3>
+                            <ul>
+                                <li>
+                                    <a href="#" title="Terms and services">
+                                        Terms
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Privacy Policy">
+                                        Privacy
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Cookies">
+                                        Cookies
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Licenses">
+                                        Licenses
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" title="Cookies">
+                                        Contact
+                                    </a>
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+                   
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-description">
+                        <h3>Streamline Your Procurement with SMART REQ</h3>
+                        <p>Elevate your procurement process<p>
+                    </div>
+                    <small>© Smartreq co Ltd. <span id="year"></span>, All rights reserved</small>
+                </div>
+            </div>
+        </footer>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
