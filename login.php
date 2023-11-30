@@ -18,7 +18,7 @@
         <h2 class="logo">SmartREQ<br></h2>
         <h3> A REQUISITION AND MANAGEMENT SYSTEM</h3>
         <nav class="navigation ">
-            <a href="#">Register</a>
+            <a href="#"></a>
             <button class="btnlogin-popup" >login</button>
         </nav>
         
